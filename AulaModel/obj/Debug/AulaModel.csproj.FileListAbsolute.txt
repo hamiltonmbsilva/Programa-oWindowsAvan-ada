@@ -33,3 +33,5 @@ D:\Facudade Vianna Junior\3 Terceiro Semestre\Programação de Windons Avançado
 D:\Facudade Vianna Junior\3 Terceiro Semestre\Programação de Windons Avançados\AulaModel\AulaModel\AulaModel\bin\Remotion.Linq.EagerFetching.xml
 D:\Facudade Vianna Junior\3 Terceiro Semestre\Programação de Windons Avançados\AulaModel\AulaModel\AulaModel\bin\Antlr3.Runtime.xml
 D:\Facudade Vianna Junior\3 Terceiro Semestre\Programação de Windons Avançados\AulaModel\AulaModel\AulaModel\bin\Iesi.Collections.xml
+D:\Facudade Vianna Junior\3 Terceiro Semestre\Programação de Windons Avançados\AulaModel\AulaModel\AulaModel\bin\MySql.Data.dll
+D:\Facudade Vianna Junior\3 Terceiro Semestre\Programação de Windons Avançados\AulaModel\AulaModel\AulaModel\bin\MySql.Data.xml

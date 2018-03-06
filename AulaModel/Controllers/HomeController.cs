@@ -1,4 +1,5 @@
-﻿using AulaModel.Modelo.DB.Model;
+﻿using AulaModel.Modelo.DB;
+using AulaModel.Modelo.DB.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace AulaModel.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            
+            var x =  DbFactory.Instance;
 
             return View(Pessoa.Pessoas);
         }
