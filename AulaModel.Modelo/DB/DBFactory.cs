@@ -33,7 +33,28 @@ namespace AulaModel.Modelo.DB
         {
             try
             {
-                var stringConexao = "";
+                var server = "localhost";
+                var port = "3306";
+                var dbName = "db_agenda";
+                var user = "root";
+                var psw = "aluno";
+
+                var stringConexao = "Persist Security Info=False;" + 
+                    "server=" + server + 
+                    ";port=" + port + 
+                    ";database=" + dbName + 
+                    ";uid=" + user +
+                    ";pwd=" + psw;
+
+                try
+                {
+
+                }
+                catch
+                {
+
+                }
+
                 ConfigurarNHibernate(stringConexao);
             } catch (Exception ex)
             {

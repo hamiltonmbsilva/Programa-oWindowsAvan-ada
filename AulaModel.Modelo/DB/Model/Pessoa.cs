@@ -28,7 +28,7 @@ namespace AulaModel.Modelo.DB.Model
 
             Id(x => x.Id, m=> m.Generator(Generators.Guid));
 
-            Property(x => x.Id);
+            Property(x => x.Nome);
             Property(x => x.DtNascimento);
             Property(x => x.Telefone);
             Property(x => x.Email);
