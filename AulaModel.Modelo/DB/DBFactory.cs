@@ -1,16 +1,26 @@
-﻿using MySql.Data.MySqlClient;
+﻿using AulaModel.Modelo.DB.Model;
+using MySql.Data.MySqlClient;
+using NHibernate;
 using NHibernate.Cfg;
+using NHibernate.Cfg.MappingSchema;
+using NHibernate.Context;
+using NHibernate.Mapping.ByCode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace AulaModel.Modelo.DB
 {
     public class DbFactory
     {
         private static DbFactory _instance = null;
+
+        private ISessionFactory _sessionFactory;
+
 
         private DbFactory()
         {
@@ -119,10 +129,44 @@ namespace AulaModel.Modelo.DB
                     //Cria o Schema do banco de dados sempre que a configuration for utilizada
                     i.SchemaAction = SchemaAutoAction.Update;
                 });
+
+                //Realiza o mapeamento das classes
+                var maps = this.Mapeamento();
+                config.AddMapping(maps);
+
+                //Verifico se aplicação é Desktop ou web
+                if(HttpContext.Current == null)
+                {
+                    config.CurrentSessionContext<ThreadStaticSessionContext>();
+                }
+                else
+                {
+                    config.CurrentSessionContext<WebSessionContext>();
+                }
+
+                this._sessionFactory = config.BuildSessionFactory();
             }
             catch (Exception ex)
             {
                 throw new Exception("Não foi possivel confegurar NH", ex);
+            }
+        }
+
+        private HbmMapping Mapeamento()
+        {
+            try
+            {
+                var mapper = new ModelMapper();
+
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(PessoaMap)).GetTypes());
+
+                return mapper.CompileMappingForAllExplicitlyAddedEntities();
+
+              
+            }catch(Exception ex)
+            {
+                throw new Exception("Não mapeou", ex);
             }
         }
     }
