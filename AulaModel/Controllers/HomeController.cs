@@ -13,9 +13,9 @@ namespace AulaModel.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            var x =  DbFactory.Instance;
+            var pessoas = DbFactory.Instance.PessoaRepository.FindAll();
 
-            return View(Pessoa.Pessoas);
+            return View(pessoas);
         }
 
         public ActionResult InserirPessoa()
@@ -25,8 +25,7 @@ namespace AulaModel.Controllers
 
         public ActionResult GravarPessoa(Pessoa pessoa)
         {
-            pessoa.Id = Guid.NewGuid();
-            Pessoa.Pessoas.Add(pessoa);
+            DbFactory.Instance.PessoaRepository.SaveOrUpdate(pessoa);
 
             //return View("Index", Pessoa.Pessoas);
             return RedirectToAction("Index");
@@ -34,32 +33,26 @@ namespace AulaModel.Controllers
 
         public ActionResult ApagarPessoa(Guid id)
         {
-            Pessoa p = null;
-            foreach(var pessoa in Pessoa.Pessoas)
-            {
-                if(pessoa.Id == id)
-                {
-                    p = pessoa;
-                    break;
-                }
-            }
+            var pessoa = DbFactory.Instance.PessoaRepository.FindById(id);
 
-            if(p != null)
-            {
-                Pessoa.Pessoas.Remove(p);
+            if(pessoa != null) { 
+                DbFactory.Instance.PessoaRepository.Delete(pessoa);
             }
-
             return RedirectToAction("Index");
         }
 
         public ActionResult Buscar(String edtBusca)
         {
-            var pessoaAux = new List<Pessoa>();
+            
 
             if (String.IsNullOrEmpty(edtBusca))
             {
-                return View("Index", Pessoa.Pessoas);
+                return RedirectToAction("Index");
             }
+
+            var pessoa = DbFactory.Instance.PessoaRepository.GetAllByName(edtBusca);
+
+            return View("Index", pessoa);
 
             //1 - Filtro com FOR
             //for(var i = 0; i < Pessoa.Pessoas.Count; i++)
@@ -87,11 +80,26 @@ namespace AulaModel.Controllers
             //    ).ToList();
 
             //4 - Filtro com 
-            pessoaAux = Pessoa.Pessoas.Where(x => 
-                            x.Nome == edtBusca.Trim()
-                        ).ToList();
+            // pessoaAux = Pessoa.Pessoas.Where(x => 
+            //  x.Nome == edtBusca.Trim()
+            //  ).ToList();
 
-            return View("Index", pessoaAux);
+
+        }
+
+        public ActionResult EditarPessoa(Guid id)
+        {
+            var pessoa = DbFactory.Instance.PessoaRepository.FindById(id);
+
+            if (pessoa != null)
+            {
+                return View(pessoa);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+
         }
     }
 }

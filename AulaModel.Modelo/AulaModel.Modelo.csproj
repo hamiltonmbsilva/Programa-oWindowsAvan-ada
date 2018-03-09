@@ -71,11 +71,11 @@
   <ItemGroup>
     <Compile Include="DB\DbFactory.cs" />
     <Compile Include="DB\Model\Pessoa.cs" />
+    <Compile Include="DB\Repository\PessoaRepository.cs" />
+    <Compile Include="DB\Repository\RepositoryBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DB\Repository\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="docs\MySqlCommand.xml" />
     <Content Include="docs\MySqlCommandBuilder.xml" />

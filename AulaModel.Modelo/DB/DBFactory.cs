@@ -1,4 +1,5 @@
 ﻿using AulaModel.Modelo.DB.Model;
+using AulaModel.Modelo.DB.Repository;
 using MySql.Data.MySqlClient;
 using NHibernate;
 using NHibernate.Cfg;
@@ -21,10 +22,15 @@ namespace AulaModel.Modelo.DB
 
         private ISessionFactory _sessionFactory;
 
+        //sempre vim aqui para iniciar
+        public PessoaRepository PessoaRepository { get; set; }
+
 
         private DbFactory()
         {
             Conexao();
+
+            PessoaRepository = new PessoaRepository(Session);
         }
 
         public static DbFactory Instance
