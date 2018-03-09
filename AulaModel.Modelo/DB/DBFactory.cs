@@ -169,5 +169,27 @@ namespace AulaModel.Modelo.DB
                 throw new Exception("Não mapeou", ex);
             }
         }
+
+        public ISession Session
+        {
+            get
+            {
+                try
+                {
+                    if (CurrentSessionContext.HasBind(_sessionFactory))
+                        return _sessionFactory.GetCurrentSession();
+
+                    var session = _sessionFactory.OpenSession();
+                    session.FlushMode = FlushMode.Commit;
+
+                    CurrentSessionContext.Bind(session);
+                    return session;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Não foi possivel criar a Sessã.", ex);
+                }
+            }
+        }
     }
 }
